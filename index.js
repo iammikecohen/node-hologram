@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = options => require('./src/Main')(options);
+module.exports = options => require('./build')(options);

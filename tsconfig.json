@@ -1,11 +1,17 @@
 {
     "compilerOptions": {
+        "outDir": "build",
         "target": "ES5",
         "module": "commonjs",
         "sourceMap": true
     },
+    "filesGlob": [
+        "./src/**/*.ts",
+        "!node_modules",
+        "!typings"
+    ],
     "exclude": [
         "node_modules",
-        "dist"
+        "typings"
     ]
 }

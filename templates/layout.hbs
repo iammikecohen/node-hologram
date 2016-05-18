@@ -102,14 +102,6 @@
             <h3 class="hologram-styleguide__section-title">Styles</h3>
             {{#each styles}}
                 <div class="hologram-styleguide__item" id="{{this.name}}">
-                    {{#if ../idelink}}
-                        <div class="hologram__ide-links">
-                            {{#each ../idelink}}
-                                <a title="Open in {{@key}}" class="hologram__ide-link--{{@key}}" href="{{this}}://open?url=file://{{../path}}&line=1">Open
-                                    in {{@key}}</a>
-                            {{/each}}
-                        </div>
-                    {{/if}}
                     <div class="hologram-styleguide__item-content markdown-body">{{{this.content}}}</div>
                 </div>
             {{/each}}

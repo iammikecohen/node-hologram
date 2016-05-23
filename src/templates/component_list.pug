@@ -1,0 +1,83 @@
+//- VIEW DATA
+//- fonts: array
+//- title: string
+//- colors: array
+//- description: string
+//- components: object
+//- highlight_code: boolean
+//- styleguide_stylesheet: raw_string
+
+doctype html
+html
+	head
+		title Hologram
+		if highlight_code
+			link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css")
+		style!= styleguide_stylesheet
+	body.hologram
+
+		//- SIDENAV
+		.hologram-sideNav
+			.hologram-sideNav__wrap
+				ul.hologram-sideNav__list
+					if colors
+						li.hologram-sideNav__list-item
+							a.hologram-sideNav__list-title(href="#hologramPalette") Color palette
+					if fonts
+						li.hologram-sideNav__list-item
+							a.hologram-sideNav__list-title(href="#hologramFonts") Fonts
+					li.hologram-sideNav__list-item
+						a.hologram-sideNav__list-title(href="#hologramStyles") Components
+					-for(var component in components)
+						if component != "undefined"
+							li.hologram-sideNav__list-item
+								a.hologram-sideNav__list-title(href="#category-"+component)= component
+						each item in components[component]
+							li.hologram-sideNav__list-item(href=item.id+"-example.html")
+								a.hologram-sideNav__list-link(href="#"+component)=item.meta.title
+
+		//- COMPONENT LIST
+		section.hologram-styleguide
+			h2.hologram-styleguide__title=title
+			p.hologram-styleguide__description=description
+
+			if colors
+				section.hologram-styleguide__section#hologramPalette
+					h3.hologram-styleguide__section-title Colors
+					div.hologram-styleguide__color-pallette
+						each color in colors
+							.hologram-styleguide__color-pallette-item
+								.hologram-styleguide__color-pallette-item-swatch(style="background:"+color+";")
+								.hologram-styleguide__color-pallette-item-text
+									.hologram-styleguide__color-pallette-item-name= color
+
+			if fonts
+				section.hologram-styleguide__sectio
+					h2.hologram-styleguide__section-title Fonts
+					div.hologram-styleguide__fonts
+						each font in fonts
+							.hologram-styleguide__font-item
+								link(href=font.src)
+								p.hologram-styleguide__font-item-text
+								p.hologram-styleguide__font-item-swatch(style="font-family: "+font.name+";").
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+			section.hologram-styleguide__section
+				-for(var component in components)
+					if component != "undefined"
+						h3.hologram-styleguide__section-title(id=component)= component
+					each item in components[component]
+						div.hologram-styleguide__item(id=item.title)
+							h4=item.meta.title
+							div.hologram-styleguide__item-content.markdown-body!=item.html
+
+		script.
+			window.resizeIframe = function(obj) {
+				obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px'
+			}
+
+		if highlight_code
+			script(src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js")
+			script.
+				hljs.initHighlightingOnLoad()
+

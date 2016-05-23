@@ -1,0 +1,20 @@
+//- VIEW DATA
+//- fonts: array
+//- title: string
+//- styles: array
+//- scripts: array
+//- example: raw_string
+
+doctype html
+html
+	head
+		title= title + " Hologram"
+		each font in fonts
+			link(href=font.src)
+		each style in styles
+			link(href=style)
+	body
+		div!=example
+
+		each script in scripts
+			script(src=script)

@@ -1,4 +1,4 @@
-.hologram {
+                .hologram {
   color: #333333;
   padding: 0;
   margin: 0;
@@ -113,5 +113,3 @@ iframe {
 .hologram-styleguide__item h1, .hologram-styleguide__item h2, .hologram-styleguide__item h3, .hologram-styleguide__item h4, .hologram-styleguide__item h5, .hologram-styleguide__item h6 {
   margin-top: 0;
   font-weight: normal; }
-
-/*# sourceMappingURL=main.css.map */

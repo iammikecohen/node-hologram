@@ -1,12 +1,9 @@
 {
   "name": "node-hologram",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Generate styleguides from markdown documentation",
   "main": "index.js",
-  "scripts": {
-    "tsc": "tsc -p src -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "BrianDGLS",
   "license": "ISC",
   "repository": {
@@ -23,9 +20,10 @@
   },
   "homepage": "https://github.com/BrianDGLS/node-hologram#readme",
   "dependencies": {
-    "handlebars": "^4.0.5",
     "meta-marked": "^0.4.1",
     "mkdirp": "^0.5.1",
-    "recursive-search": "^1.0.1"
+    "pug": "^2.0.0-alpha7",
+    "recursive-search": "^1.0.1",
+    "underscore": "^1.8.3"
   }
 }

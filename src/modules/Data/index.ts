@@ -43,7 +43,7 @@ export class Data {
     extractContent(s: string): Array<string> {
         try {
             return s
-                .match(/\/\*[^*]*\*+([^/*][^*]*\*+)*\//)[0]
+                .match(/\/\*+doc[\s\S]*?\*\//)[0]
                 .replace(/\/\*(.*?)\\*\//g, '')
                 .split('\n');
         } catch (e) {
@@ -75,9 +75,12 @@ export class Data {
                 .map(file => {
                     let formattedFile: any = path.parse(file);
                     if (ext === formattedFile.ext.slice(1)) {
+                        console.log('extension matched', ext);
                         let content: Array<string> = this.extractContent(fs.readFileSync(file, 'utf8'));
                         if (content.length) {
+                            console.log('true');
                             if (content[0].match(/doc/)) {
+                                console.log('match');
                                 content.pop();
                                 content.splice(0, 1);
 
@@ -99,7 +102,7 @@ export class Data {
                                 currentFile.content = markdownData.html;
                                 currentFile.example = _example.extractExample(formattedContent);
                                 currentFile.path = file;
-
+                                console.log('data',currentFile);
                                 data.push(currentFile);
                             }
                         }

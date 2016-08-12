@@ -2,6 +2,7 @@
 var fs = require('fs');
 var Mkdirp = require('mkdirp');
 var Handlebars = require('handlebars');
+var path = require('path');
 var View = (function () {
     function View(dest) {
         this.dest = dest;
@@ -16,7 +17,7 @@ var View = (function () {
                 console.error(err);
             }
             var filename = name === 'index' ? 'index.html' : name + "-example.html";
-            fs.writeFileSync(_this.dest + "/" + filename, _this.compile(data, layout), 'utf8');
+            fs.writeFileSync(path.join(_this.dest, filename), _this.compile(data, layout), 'utf8');
         });
     };
     return View;

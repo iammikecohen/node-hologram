@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import {Example} from '../Example';
 const Search = require('recursive-search');
 const Marked = require('meta-marked');
+const path = require('path');
 
 Marked.setOptions({
     renderer: new Marked.Renderer(),
@@ -50,13 +51,6 @@ export class Data {
         }
     }
 
-    getName(name: string): string {
-        let split = name.split('.');
-        split.pop();
-
-        return split.join('-');
-    }
-
     setOrder(data: Array<any>): Array<any> {
         let newData: Array<any> = data;
         let temp: Array<any> = data
@@ -70,27 +64,25 @@ export class Data {
         return newData;
     }
 
-    get(directories: Array<string>, ext: string): Array<string> {
+    get(directories: Array<string>, ext: string): Array<String> {
         let _example: Example = new Example();
-        let data: Array<string> = [];
+        let data: Array<any> = [];
         let meta: Object = {};
 
 
         directories.map(directory => {
             Search.recursiveSearchSync('*', this.root + directory)
                 .map(file => {
-                    let formattedFile: string = file.split('/').pop();
-
-                    if (ext === formattedFile.split('.').pop()) {
+                    let formattedFile: any = path.parse(file);
+                    if (ext === formattedFile.ext.slice(1)) {
                         let content: Array<string> = this.extractContent(fs.readFileSync(file, 'utf8'));
-
                         if (content.length) {
                             if (content[0].match(/doc/)) {
                                 content.pop();
                                 content.splice(0, 1);
 
                                 let currentFile: any = {};
-                                let name: string = this.getName(formattedFile);
+                                let name: string = formattedFile.name;
                                 let formattedContent: string = content.join('\n');
                                 let markdownData: any;
 

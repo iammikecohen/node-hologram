@@ -2,6 +2,7 @@ import * as fs from 'fs';
 
 const Mkdirp = require('mkdirp');
 const Handlebars = require('handlebars');
+const path = require('path');
 
 export class View {
     dest: string;
@@ -21,8 +22,7 @@ export class View {
             }
 
             let filename: string = name === 'index' ? 'index.html' : `${name}-example.html`;
-
-            fs.writeFileSync(`${this.dest}/${filename}`, this.compile(data, layout), 'utf8');
+            fs.writeFileSync(path.join(this.dest, filename), this.compile(data, layout), 'utf8');
         });
     }
 }

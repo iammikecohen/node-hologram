@@ -3,6 +3,7 @@ var fs = require('fs');
 var Example_1 = require('../Example');
 var Search = require('recursive-search');
 var Marked = require('meta-marked');
+var path = require('path');
 Marked.setOptions({
     renderer: new Marked.Renderer(),
     gfm: true,
@@ -44,11 +45,6 @@ var Data = (function () {
             return [];
         }
     };
-    Data.prototype.getName = function (name) {
-        var split = name.split('.');
-        split.pop();
-        return split.join('-');
-    };
     Data.prototype.setOrder = function (data) {
         var newData = data;
         var temp = data
@@ -67,15 +63,15 @@ var Data = (function () {
         directories.map(function (directory) {
             Search.recursiveSearchSync('*', _this.root + directory)
                 .map(function (file) {
-                var formattedFile = file.split('/').pop();
-                if (ext === formattedFile.split('.').pop()) {
+                var formattedFile = path.parse(file);
+                if (ext === formattedFile.ext.slice(1)) {
                     var content = _this.extractContent(fs.readFileSync(file, 'utf8'));
                     if (content.length) {
                         if (content[0].match(/doc/)) {
                             content.pop();
                             content.splice(0, 1);
                             var currentFile = {};
-                            var name_1 = _this.getName(formattedFile);
+                            var name_1 = formattedFile.name;
                             var formattedContent = content.join('\n');
                             var markdownData = void 0;
                             if (name_1.charAt(0) === '_') {
